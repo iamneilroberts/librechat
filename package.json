@@ -155,6 +155,7 @@
     ]
   },
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.705.0",
     "winston-daily-rotate-file": "^5.0.0"
   }
 }
