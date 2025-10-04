@@ -27,11 +27,12 @@ const edit = require('./edit');
 const keys = require('./keys');
 const user = require('./user');
 const mcp = require('./mcp');
-const voygent = require('./voygent');
+// TODO: Phase 5 - Re-enable when pricing and MCP customizations are added
+// const voygent = require('./voygent');
 
 module.exports = {
   mcp,
-  voygent,
+  // voygent,
   edit,
   auth,
   keys,

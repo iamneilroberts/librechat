@@ -6,16 +6,18 @@
  */
 
 import { Router } from 'express';
-import tokenUsageRouter from './token-usage.js';
-import tripProgressRouter from './trip-progress.js';
+// TODO: Phase 5 - Uncomment when pricing customizations are added
+// import tokenUsageRouter from './token-usage.js';
+// import tripProgressRouter from './trip-progress.js';
 import statusRouter from './status.js';
 import mcpHealthRouter from './mcp-health.js';
 
 const router = Router();
 
 // Mount all voygent routes
-router.use(tokenUsageRouter);
-router.use(tripProgressRouter);
+// TODO: Phase 5 - Re-enable token usage and trip progress routes
+// router.use(tokenUsageRouter);
+// router.use(tripProgressRouter);
 router.use(statusRouter);
 router.use(mcpHealthRouter);
 
