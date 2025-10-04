@@ -137,6 +137,7 @@ const startServer = async () => {
 
   app.use('/api/tags', routes.tags);
   app.use('/api/mcp', routes.mcp);
+  app.use('/api/voygent', routes.voygent);
 
   app.use(ErrorController);
 

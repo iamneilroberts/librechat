@@ -20,6 +20,8 @@ import { TermsAndConditionsModal } from '~/components/ui';
 import { Nav, MobileNav } from '~/components/Nav';
 import { useHealthCheck } from '~/data-provider';
 import { Banner } from '~/components/Banners';
+import StatusBar from '~/components/StatusBar';
+import VoygenWelcome from '~/components/VoygenWelcome';
 
 export default function Root() {
   const [showTerms, setShowTerms] = useState(false);
@@ -76,8 +78,10 @@ export default function Root() {
                   <Nav navVisible={navVisible} setNavVisible={setNavVisible} />
                   <div className="relative flex h-full max-w-full flex-1 flex-col overflow-hidden">
                     <MobileNav setNavVisible={setNavVisible} />
+                    <VoygenWelcome />
                     <Outlet context={{ navVisible, setNavVisible } satisfies ContextType} />
                   </div>
+                  <StatusBar />
                 </div>
               </div>
             </PromptGroupsProvider>

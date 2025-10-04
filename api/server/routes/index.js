@@ -27,9 +27,11 @@ const edit = require('./edit');
 const keys = require('./keys');
 const user = require('./user');
 const mcp = require('./mcp');
+const voygent = require('./voygent');
 
 module.exports = {
   mcp,
+  voygent,
   edit,
   auth,
   keys,
