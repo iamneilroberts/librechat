@@ -8,6 +8,11 @@ import { CustomMenu as Menu } from './CustomMenu';
 import DialogManager from './DialogManager';
 import { useLocalize } from '~/hooks';
 
+// Voygent: Force travel agent mode unless admin mode is enabled
+const FORCE_TRAVEL_AGENT_MODE = import.meta.env.VITE_FORCE_TRAVEL_AGENT_MODE === 'true';
+const ADMIN_MODE_ENABLED = import.meta.env.VITE_VOYGENT_ADMIN_MODE === 'true';
+const HIDE_MODEL_SELECTOR = FORCE_TRAVEL_AGENT_MODE && !ADMIN_MODE_ENABLED;
+
 function ModelSelectorContent() {
   const localize = useLocalize();
 
@@ -52,6 +57,22 @@ function ModelSelectorContent() {
       }),
     [localize, agentsMap, modelSpecs, selectedValues, mappedEndpoints],
   );
+
+  // Voygent: Hide selector entirely if forced mode is active and admin mode is not enabled
+  if (HIDE_MODEL_SELECTOR) {
+    return (
+      <div className="relative flex w-full max-w-md flex-col items-center gap-2">
+        <div className="my-1 flex h-10 w-full max-w-[70vw] items-center justify-center gap-2 rounded-xl border border-border-light bg-surface-secondary px-3 py-2 text-sm text-text-primary">
+          {selectedIcon && React.isValidElement(selectedIcon) && (
+            <div className="flex flex-shrink-0 items-center justify-center overflow-hidden">
+              {selectedIcon}
+            </div>
+          )}
+          <span className="flex-grow truncate text-left">{selectedDisplayValue}</span>
+        </div>
+      </div>
+    );
+  }
 
   const trigger = (
     <button
