@@ -1,0 +1,64 @@
+services:
+  - type: web
+    name: voygent-librechat-phase3
+    runtime: docker
+    repo: https://github.com/iamneilroberts/librechat
+    branch: voygent-mvp
+    rootDir: apps/librechat
+    region: virginia
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: ./
+    numInstances: 1
+    healthCheckPath: /
+    envVars:
+      # Server Configuration
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 3080
+      - key: NODE_ENV
+        value: production
+      - key: DOMAIN_CLIENT
+        sync: false
+      - key: DOMAIN_SERVER
+        sync: false
+
+      # MongoDB Connection (you'll need to create a database or use MongoDB Atlas)
+      - key: MONGO_URI
+        sync: false
+
+      # Security (generate these securely)
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: CREDS_KEY
+        sync: false
+      - key: CREDS_IV
+        sync: false
+
+      # Voygent Phase 3 Configuration
+      - key: VITE_FORCE_TRAVEL_AGENT_MODE
+        value: true
+      # Uncomment to enable admin override for testing:
+      # - key: VITE_VOYGENT_ADMIN_MODE
+      #   value: true
+
+      # API Keys (set these in Render dashboard or via CLI)
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+
+      # Optional: Z.ai API key if using GLM models
+      - key: Z_AI_API_KEY
+        sync: false
+
+      # LibreChat Configuration
+      - key: NO_INDEX
+        value: true
+      - key: ALLOW_REGISTRATION
+        value: true
+      - key: ALLOW_SOCIAL_LOGIN
+        value: false
