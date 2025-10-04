@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: voygent-mongo-test
+    restart: unless-stopped
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - "27018:27017"
+
+  librechat:
+    image: voygent-librechat:phase3-test
+    container_name: voygent-librechat-test
+    restart: unless-stopped
+    ports:
+      - "3090:3080"
+    depends_on:
+      - mongodb
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3080
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - DOMAIN_CLIENT=http://localhost:3090
+      - DOMAIN_SERVER=http://localhost:3090
+      - NO_INDEX=true
+
+      # JWT & Encryption (testing only - use secure values in production)
+      - JWT_SECRET=test-jwt-secret-change-in-production
+      - JWT_REFRESH_SECRET=test-refresh-secret-change-in-production
+      - CREDS_KEY=f34be427ebb29de8d88c107a71546019685ed8b241d8f2ed00c3df97ad2566f0
+      - CREDS_IV=e2341419ec3dd3d19b13a1a87fafcbfb
+
+      # Voygent Configuration - Phase 3 Testing
+      - VITE_FORCE_TRAVEL_AGENT_MODE=true
+      # - VITE_VOYGENT_ADMIN_MODE=true  # Uncomment to test admin override
+
+      # API Keys (replace with your actual keys)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml:ro
+      - librechat-images:/app/client/public/images
+      - librechat-logs:/app/api/logs
+
+volumes:
+  mongodb-data:
+  librechat-images:
+  librechat-logs:
