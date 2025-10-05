@@ -157,6 +157,8 @@
   "dependencies": {
     "winston-daily-rotate-file": "^5.0.0",
     "@smithy/signature-v4": "^4.0.0",
-    "@smithy/protocol-http": "^4.0.0"
+    "@smithy/protocol-http": "^4.0.0",
+    "@smithy/eventstream-codec": "^4.0.0",
+    "@smithy/types": "^4.0.0"
   }
 }
