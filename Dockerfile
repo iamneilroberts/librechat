@@ -38,6 +38,12 @@ RUN \
 
 COPY --chown=node:node . .
 
+# Accept VITE environment variables as build args
+ARG VITE_FORCE_TRAVEL_AGENT_MODE
+ARG VITE_VOYGENT_ADMIN_MODE
+ENV VITE_FORCE_TRAVEL_AGENT_MODE=$VITE_FORCE_TRAVEL_AGENT_MODE
+ENV VITE_VOYGENT_ADMIN_MODE=$VITE_VOYGENT_ADMIN_MODE
+
 RUN \
     # React client build
     NODE_OPTIONS="--max-old-space-size=2048" npm run frontend; \
